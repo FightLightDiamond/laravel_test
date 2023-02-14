@@ -29,7 +29,7 @@ class DurableCommand extends RabbitMQCommand
         parent::__construct();
     }
 
-    public function main(AMQPChannel $channel) {
+    public function main(AMQPChannel $channel): void {
         $channel->queue_declare('task_queue', false, true, false, false);
         echo " [*] Waiting for messages. To exit press CTRL+C\n";
 

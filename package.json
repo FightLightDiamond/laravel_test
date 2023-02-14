@@ -2,10 +2,15 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "profiler-server": "node node_modules/laravel-profiler-client/server/server.js http=8099 ws=1901",
+        "profiler-client": "http-server node_modules/laravel-profiler-client/dist/ -o -s",
+        "ps": "npm run profiler-server",
+        "pc": "npm run profiler-client"
     },
     "devDependencies": {
         "axios": "^1.1.2",
+        "laravel-profiler-client": "^1.3.0",
         "laravel-vite-plugin": "^0.7.2",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",

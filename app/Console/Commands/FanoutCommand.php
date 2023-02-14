@@ -23,7 +23,7 @@ class FanoutCommand extends RabbitMQCommand
     /**
      * @param AMQPChannel $channel
      */
-    public function main(AMQPChannel $channel) {
+    public function main(AMQPChannel $channel): void {
         $exchange = 'fanout_queue';
         $type = 'fanout';
 

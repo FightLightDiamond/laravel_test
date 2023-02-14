@@ -3,23 +3,22 @@
 namespace App\Transformers;
 
 use App\Models\Order;
-use League\Fractal\TransformerAbstract;
 
 /**
  * Class OrderTransformer.
  *
  * @package namespace App\Transformers;
  */
-class OrderTransformer extends TransformerAbstract
+class OrderTransformer
 {
     /**
      * Transform the Order entity.
      *
-     * @param \App\Entities\Order $model
+     * @param \App\Models\Order $model
      *
      * @return array
      */
-    public function transform(Order $model)
+    public function transform(Order $model): array
     {
         return [
             'id'         => (int) $model->id,

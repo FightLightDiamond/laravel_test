@@ -24,7 +24,7 @@ class TopicCommand extends RabbitMQCommand
     /**
      * @param AMQPChannel $channel
      */
-    public function main(AMQPChannel $channel) {
+    public function main(AMQPChannel $channel): void {
         $routing = $this->argument('routing');
         echo $routing;
         $exchange_name = 'topic_logs';

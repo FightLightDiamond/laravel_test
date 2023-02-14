@@ -18,7 +18,7 @@ docker-restart:
 	make docker-link-storage
 
 docker-connect:
-	docker exec -it c9-laravel.test-1 bash
+	docker exec -it laravel_test_laravel.test_1 bash
 
 init-app:
 	cp .env.example .env
@@ -30,7 +30,7 @@ init-app:
 	php artisan storage:link
 
 docker-init:
-	docker exec -it c9-laravel.test-1 make init-app
+	docker exec -it laravel_test_laravel.test_1 make init-app
 	rm -rf node_modules
 	npm install
 
@@ -41,10 +41,10 @@ init-db-full:
 	php artisan db:seed
 
 docker-init-db-full:
-	docker exec -it c9-laravel.test-1 make init-db-full
+	docker exec -it laravel_test_laravel.test_1 make init-db-full
 
 docker-link-storage:
-	docker exec -it c9-laravel.test-1 php artisan storage:link
+	docker exec -it laravel_test_laravel.test_1 php artisan storage:link
 
 init-db:
 	make autoload
@@ -69,7 +69,7 @@ watch:
 	npm run watch
 
 docker-watch:
-	docker exec -it c9-laravel.test-1 make watch
+	docker exec -it laravel_test_laravel.test_1 make watch
 
 autoload:
 	composer dump-autoload
@@ -78,7 +78,7 @@ cache:
 	php artisan cache:clear && php artisan view:clear
 
 docker-cache:
-	docker exec c9-laravel.test-1 make cache
+	docker exec laravel_test_laravel.test_1 make cache
 
 route:
 	php artisan route:list
@@ -89,3 +89,6 @@ generate-master:
 update-master:
 	php artisan master:update $(lang)
 	make cache
+
+as:
+	alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'

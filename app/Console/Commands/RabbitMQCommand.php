@@ -38,9 +38,9 @@ class RabbitMQCommand extends Command
 	 * @return void
 	 * @throws \Exception
 	 */
-    public function handle()
+    public function handle(): void
     {
-	    $connection = new AMQPStreamConnection('rabbitmq', 5672, 'user', 1);
+	    $connection = new AMQPStreamConnection('rabbitmq', 5672, 'user', '1');
 	    $channel = $connection->channel();
 
 	    $this->main($channel);
@@ -50,7 +50,7 @@ class RabbitMQCommand extends Command
 	    }
     }
 
-    public function main(AMQPChannel $channel) {
+    public function main(AMQPChannel $channel): void {
         $channel->queue_declare('hello', false, false, false, false);
 
         echo " [*] Waiting for messages. To exit press CTRL+C\n";

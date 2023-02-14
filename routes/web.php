@@ -21,6 +21,7 @@ use Stripe\Stripe;
 */
 
 Route::get('/', function () {
+//    xdebug_start_profiling();
     $a = [5, 4, 1, 2, 3, 4, 5];
     $n = $a[0];
     $x = $a[1];// tràn mảng
@@ -45,8 +46,15 @@ Route::get('/', function () {
         }
         $c[$index] = $value;
     }
+//    xdebug_stop_profiling();
+//    return [$c, $b];
+// Lấy danh sách các hàm
+    $functions = get_defined_functions();
 
-    return [$c, $b];
+// Lấy danh sách các lớp
+    $classes = get_declared_classes();
+    print_r($functions);
+    print_r($classes);
 });
 //
 //Route::get('/a', function () {
@@ -410,4 +418,40 @@ Route::get('sell', function () {
     //laravel_database_abc2usdt:depth
     $ms->pushQueue($order);
     dd($order);
+});
+
+Route::get('x', function () {
+    // Bắt đầu ghi lại các hàm được gọi trong chương trình
+    xdebug_start_trace();
+
+// Lấy danh sách các class đã được khai báo
+    $classes = get_declared_classes();
+
+// Lặp qua từng class để lấy danh sách các method của chúng
+    foreach ($classes as $class) {
+        echo "Class: $class\n";
+
+        // Lấy danh sách các method của class
+        $methods = get_class_methods($class);
+
+        // Lặp qua từng method để liệt kê các function gọi bên trong chúng
+        foreach ($methods as $method) {
+            echo "  Method: $method\n";
+
+            // Gọi method để bắt đầu ghi lại các hàm được gọi bên trong method này
+            call_user_func_array(array($class, $method), array());
+
+            // Lấy thông tin về các hàm được gọi bên trong method
+            $trace = xdebug_get_function_stack();
+
+            // Lặp qua từng hàm để liệt kê tên của chúng
+            foreach ($trace as $call) {
+                echo "    Call: " . $call['function'] . "\n";
+            }
+        }
+    }
+
+// Kết thúc việc ghi lại các hàm được gọi trong chương trình
+    xdebug_stop_trace();
+
 });

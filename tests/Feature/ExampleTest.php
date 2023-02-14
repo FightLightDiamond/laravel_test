@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 // use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\OfbMock;
 use Tests\TestCase;
 
 class ExampleTest extends TestCase
@@ -17,5 +18,12 @@ class ExampleTest extends TestCase
         $response = $this->get('/');
 
         $response->assertStatus(200);
+    }
+
+    public function tearDown():void
+    {
+        OfbMock::unload();
+
+        parent::tearDown();
     }
 }
